@@ -11,7 +11,43 @@ module SparseMatrix
     end
   end
 
-  class YaleSparseMatrix
+  class AbstractMatrix
+
+    def [](m, n)
+      raise NotImplementedError
+    endg
+
+    def []=(m, n, v)
+      raise NotImplementedError
+    end
+
+    def transpose()
+      raise NotImplementedError
+    end
+
+    def add(other)
+      raise NotImplementedError
+    end
+
+    def subtract(other)
+      raise NotImplementedError
+    end
+
+    def multiply(other)
+      raise NotImplementedError
+    end
+
+    def inverse()
+      raise NotImplementedError
+    end
+
+    def determinant()
+      raise NotImplementedError
+    end
+
+  end
+
+  class YaleSparseMatrix < AbstractMatrix
     attr_accessor :shape
     def initialize(shape)
       @shape = shape
@@ -19,7 +55,7 @@ module SparseMatrix
 
   end
 
-  class TridiagonalSparseMatrix
+  class TridiagonalSparseMatrix < AbstractMatrix
     attr_accessor :shape
     def initialize(shape)
       @shape = shape
