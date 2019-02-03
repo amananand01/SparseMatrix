@@ -95,9 +95,9 @@ module SparseMatrix
 
     def add(other)
       # Pre:
-      other.is_a?(AbstractMatrix)
-      other.shape == @shape
-      old = self.clone
+      assert(other.is_a?(AbstractMatrix))
+      assert(other.shape == @shape)
+      assert(old = self.clone)
 
       # Post:
       for i in old.shape.m
@@ -109,9 +109,9 @@ module SparseMatrix
 
     def subtract(other)
       # Pre:
-      other.is_a?(AbstractMatrix)
-      other.shape == @shape
-      old = self.clone
+      assert(other.is_a?(AbstractMatrix))
+      assert(other.shape == @shape)
+      assert(old = self.clone)
 
       # Post:
       for i in old.shape.m
@@ -155,7 +155,7 @@ module SparseMatrix
 
     def transpose()
       # Pre:
-      old = self.clone
+      assert(old = self.clone)
       
       # Post:
       for i in old.shape.m
@@ -167,9 +167,9 @@ module SparseMatrix
 
     def add(other)
       # Pre:
-      other.is_a?(AbstractMatrix)
-      other.shape == @shape
-      old = self.clone
+      assert(other.is_a?(AbstractMatrix))
+      assert(other.shape == @shape)
+      assert(old = self.clone)
 
       # Post:
       for i in old.shape.m
@@ -181,9 +181,9 @@ module SparseMatrix
 
     def subtract(other)
       # Pre:
-      other.is_a?(AbstractMatrix)
-      other.shape == @shape
-      old = self.clone
+      assert(other.is_a?(AbstractMatrix))
+      assert(other.shape == @shape)
+      assert(old = self.clone)
 
       # Post:
       for i in old.shape.m
