@@ -15,7 +15,7 @@ module SparseMatrix
 
     def [](m, n)
       raise NotImplementedError
-    endg
+    end
 
     def []=(m, n, v)
       raise NotImplementedError
@@ -37,11 +37,11 @@ module SparseMatrix
       raise NotImplementedError
     end
 
-    def inverse()
+    def determinant()
       raise NotImplementedError
     end
 
-    def determinant()
+    def inverse()
       raise NotImplementedError
     end
 
