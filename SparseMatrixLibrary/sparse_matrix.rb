@@ -1,5 +1,4 @@
 require 'test/unit'
-
 module SparseMatrix
 
   include Test::Unit::Assertions
