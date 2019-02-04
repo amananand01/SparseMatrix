@@ -23,14 +23,28 @@ class SparseMatrixFactory include AbstractSparseMatrixFactory
     end
 end
 
-class SquareMatrixFactory include AbstractSparseMatrixFactory
+class TridiagonalMatrixFactory include AbstractSparseMatrixFactory
     def self.create(classname, matrixarray)
         # this is for matrices like tri-diagonal matrices
+        CheckTridiagonality(matrixarray)
         classname.new(matrixarray)
     end
 
-    def self.create(classname, size)
-        # This is for square matrices with computable contents e.g Identity, Zero etc
-        classname.new(size)
+    def CreateIdentity(size)
+        # Pre : 
+        assert(size > 0, "Must have positive size value!")
     end
+
+    # This is a check for validity
+    def CheckTridiagonality(matrixarray)
+        # Pre : 
+        assert(old = self.clone)
+
+        # Check for validity
+
+        # Post :
+        assert(old == self)
+    end
+
+    def 
 end

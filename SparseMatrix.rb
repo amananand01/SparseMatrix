@@ -151,7 +151,7 @@ module SparseMatrix
 
   end
 
-  class SquareMatrix < AbstractMatrix
+  class TridiagonalSparseMatrix < AbstractMatrix
     attr_accessor :shape
 
     def initialize(shape)
@@ -226,62 +226,7 @@ module SparseMatrix
     def inverse()
       
     end
-  end
 
-  class TridiagonalSparseMatrix < SquareMatrix
-    attr_accessor :shape
-    def initialize(shape)
-      super(shape)
-    end
-
-    # We will override certain operations with faster versions
-    # for Tridiagonal matrices here
-
-    def multiply(other)
-    end
-
-    def determinant()
-    end
-
-    def inverse()
-    end
-
-  end
-
-  class IdentityMatrix < AbstractMatrix
-    attr_accessor :shape
-
-    def initialize(shape)
-      # Pre: 
-      assert(shape.is_a?(SquareShape), "Must pass in a square shape to Identity Matrix")
-      @shape = shape
-    end 
-
-    def transpose()
-      # Pre:
-      assert(old = self.clone)
-      
-      # Post:
-      assert(old == self)
-    end
-
-    def multiply(other)
-      # Pre: 
-      assert(other.n == @shape.m)
-
-      # Post: 
-      assert(self == other)
-    end
-
-    def determinant()
-    end
-
-    def inverse()
-      # Pre: 
-      assert(old = self.clone)
-      # Post:
-      assert(self == old)
-    end
   end
 
 end
