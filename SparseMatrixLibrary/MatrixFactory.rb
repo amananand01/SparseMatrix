@@ -10,6 +10,8 @@ module AbstractSparseMatrixFactory
     end
 end
 
+# The factories take care of creating the right shape object and passing it in
+
 class SparseMatrixFactory include AbstractSparseMatrixFactory
     def self.create(classname, matrixarray)
         # check for size and data types in the array
