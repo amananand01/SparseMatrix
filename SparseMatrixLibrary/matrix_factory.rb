@@ -45,6 +45,4 @@ class TridiagonalMatrixFactory include AbstractSparseMatrixFactory
         # Post :
         assert(old == self)
     end
-
-    def 
 end
