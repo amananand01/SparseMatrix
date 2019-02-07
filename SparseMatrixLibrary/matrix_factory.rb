@@ -1,3 +1,5 @@
+require './sparse_matrix.rb'
+
 module AbstractSparseMatrixFactory
 
     def self.create(classname, matrixarray)
