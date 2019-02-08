@@ -1,10 +1,8 @@
-require 'test/unit'
-
 module SparseMatrix
 
-  include Test::Unit::Assertions
-
-  class AbstractMatrix
+require 'test/unit'
+include Test::Unit::Assertions
+  class AbstractMatrix 
 
     def [](m, n)
       raise NotImplementedError
@@ -124,8 +122,8 @@ module SparseMatrix
 
     def initialize(matrix, numRows, numColumns)
       # Pre:
-      assert(numRows > 0, "Number of rows must be > 0!")
-      assert(numColumns > 0, "Number of columns must be > 0!")
+      raise "numRows must be > 0" unless (numRows > 0)
+      raise "numColumsn must be > 0" unless (numColumns > 0)
 
       @main_diagonal  = Array.new
       @lower_diagonal = Array.new
@@ -147,8 +145,8 @@ module SparseMatrix
 
     def [](m, n)
       # Pre:
-      assert(0 <= m < @numRows)
-      assert(0 <= n < @numColumns)
+      raise IndexError unless (0 <= m and m < @numRows)
+      raise IndexError unless (0 <= n and n < @numColumns)
 
       # index out of bound error
       if m >= main_diagonal.size or n>=main_diagonal.size
@@ -182,19 +180,19 @@ module SparseMatrix
     # setting the value
     def []=(m, n, v)
       # Pre:
-      assert(0 <= m < @numRows)
-      assert(0 <= n < @numColumns)
+      raise IndexError unless (0 <= m < @numRows)
+      raise IndexError unless (0 <= n < @numColumns)
 
       # Post:
-      assert(self[m,n] == v)
+      raise "Set operation failed" unless (self[m,n] == v)
     end
 
     def add(other)
       # Pre:
-      assert(other.is_a?(TridiagonalSparseMatrix))
-      assert(other.numRows == @numRows)
-      assert(other.numColumns == @numColumns)
-      assert(old = self.clone)
+      raise TypeError unless (other.is_a?(TridiagonalSparseMatrix))
+      raise IndexError unless (other.numRows == @numRows)
+      raise IndexError unless (other.numColumns == @numColumns)
+      old = self.clone
 
       for i in 0...@main_diagonal.size
         @main_diagonal[i] = @main_diagonal[i] + other.main_diagonal[i]
@@ -215,16 +213,16 @@ module SparseMatrix
 
       # Post:
       # Check that dimensions haven't been mutated
-      assert(old.numColumns == self.numColumns)
-      assert(old.numRows == self.numRows)
+      raise "Add operation failed" unless (old.numColumns == self.numColumns)
+      raise "Add operation failed" unless (old.numRows == self.numRows)
     end
 
     def subtract(other)
       # Pre:
-      assert(other.is_a?(TridiagonalSparseMatrix))
-      assert(other.numRows == @numRows)
-      assert(other.numColumns == @numColumns)
-      assert(old = self.clone)
+      raise TypeError unless (other.is_a?(TridiagonalSparseMatrix))
+      raise IndexError unless (other.numRows == @numRows)
+      raise IndexError unless (other.numColumns == @numColumns)
+      old = self.clone
 
       for i in 0...@main_diagonal.size
         @main_diagonal[i] = @main_diagonal[i] - other.main_diagonal[i]
@@ -240,13 +238,13 @@ module SparseMatrix
 
       # Post:
       # Check that dimensions haven't been mutated
-      assert(old.numColumns == self.numColumns)
-      assert(old.numRows == self.numRows)
+      raise "Add operation failed" unless (old.numColumns == self.numColumns)
+      raise "Add operation failed" unless (old.numRows == self.numRows)
     end
 
     def transpose()
       # Pre:
-      assert(old = self.clone)
+      old = self.clone
 
       temp_vector = @lower_diagonal
       @lower_diagonal = @upper_diagonal
@@ -257,8 +255,8 @@ module SparseMatrix
       @numRows = tempElementCount
 
       # Post:
-      assert(old.numColumns == self.numRows)
-      assert(old.numRows == self.numColumns)
+      raise "Transpose operation failed" unless (old.numColumns == self.numRows)
+      raise "Transpose operation failed" unless (old.numRows == self.numColumns)
     end
 
     def multiply(other)
@@ -280,6 +278,22 @@ module SparseMatrix
     end
 
     def determinant()
+      continuentMemo = Hash.new # (fn, result)
+      continuentMemo.store(-1, 0)
+      continuentMemo.store(0, 1)
+      continuentMemo.store(1, @main_diagonal[0])
+
+      return compute_continuant(continuentMemo, @main_diagonal.size)
+    end
+
+    def compute_continuant(continuentMemo, mainDiagonalIndex)
+      if continuentMemo.key?(mainDiagonalIndex)
+        return continuentMemo[mainDiagonalIndex]
+
+      else
+        result = @main_diagonal[mainDiagonalIndex - 1]*compute_continuant(continuentMemo, mainDiagonalIndex - 1) - @lower_diagonal[mainDiagonalIndex - 2] * @upper_diagonal[mainDiagonalIndex - 2] * compute_continuant(continuentMemo, mainDiagonalIndex - 2)
+        return result
+      end
     end
 
     def inverse()
@@ -292,15 +306,6 @@ module SparseMatrix
   s1 = [[1,2,0,0], [3,4,5,0], [0,6,7,8], [0,0,9,10]]
   s2 = [[3,1,0,0], [5,2,6,0], [0,1,5,1], [0,0,2,1]]
   s3 = [[1,2,0], [4,5,6], [0,8,9]]
-=begin
-  matrix_1 = TridiagonalSparseMatrix.new(s1)
-  matrix_2 = TridiagonalSparseMatrix.new(s2)
-  matrix_3 = TridiagonalSparseMatrix.new(s3)
-
-=end
-
-  # p "Accessing Elements of matrix"
-  # p matrix_3[0,0] ,matrix_3[0,1], matrix_3[0,2]
 
 
   # matrix_1.add(matrix_2)
