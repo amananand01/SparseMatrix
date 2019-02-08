@@ -116,25 +116,22 @@ module SparseMatrix
   end
 
   class TridiagonalSparseMatrix < AbstractMatrix
-    # attr_accessor :shape
-
     attr_reader :main_diagonal
     attr_reader :lower_diagonal
     attr_reader :upper_diagonal
+    attr_reader :numColumns
+    attr_reader :numRows
 
+    def initialize(matrix, numRows, numColumns)
+      # Pre:
+      assert(numRows > 0, "Number of rows must be > 0!")
+      assert(numColumns > 0, "Number of columns must be > 0!")
 
-    def initialize(matrix)
-      # # Pre:
-      # assert(shape.is_a?(SquareShape), "Must pass in a square shape to Square Matrix")
-      # @shape = shape
-
-
-      # first  vector => main  diagonal
-      # second vector => first diagonal below main
-      # third  vector => first diagonal above main
       @main_diagonal  = Array.new
       @lower_diagonal = Array.new
       @upper_diagonal  = Array.new
+      @numRows = numRows
+      @numColumns = numColumns
 
       for i in 0...matrix.size
         for j in 0...matrix[i].size
@@ -148,15 +145,10 @@ module SparseMatrix
 
     end
 
-    # getting the value
     def [](m, n)
       # Pre:
-      # assert(0 <= m < @shape.m)
-      # assert(0 <= n < @shape.m)
-      #
-      begin
-        raise "Indices of matrix must be >= 0" unless (m>=0) and (n>=0)
-      end
+      assert(0 <= m < @numRows)
+      assert(0 <= n < @numColumns)
 
       # index out of bound error
       if m >= main_diagonal.size or n>=main_diagonal.size
@@ -190,18 +182,19 @@ module SparseMatrix
     # setting the value
     def []=(m, n, v)
       # Pre:
-      # assert(0 <= m < @shape.m)
-      # assert(0 <= n < @shape.m)
+      assert(0 <= m < @numRows)
+      assert(0 <= n < @numColumns)
 
       # Post:
-      # assert(self[m,n] == v)
+      assert(self[m,n] == v)
     end
 
     def add(other)
       # Pre:
-      # assert(other.is_a?(SquareMatrix))
-      # assert(other.shape == @shape)
-      # assert(old = self.clone)
+      assert(other.is_a?(TridiagonalSparseMatrix))
+      assert(other.numRows == @numRows)
+      assert(other.numColumns == @numColumns)
+      assert(old = self.clone)
 
       for i in 0...@main_diagonal.size
         @main_diagonal[i] = @main_diagonal[i] + other.main_diagonal[i]
@@ -221,18 +214,17 @@ module SparseMatrix
       p @upper_diagonal
 
       # Post:
-      # for i in old.shape.m
-      #   for j in old.shape.n
-      #     assert(self[i,j] == old[i,j] + other[i,j])
-      #   end
-      # end
+      # Check that dimensions haven't been mutated
+      assert(old.numColumns == self.numColumns)
+      assert(old.numRows == self.numRows)
     end
 
     def subtract(other)
       # Pre:
-      # assert(other.is_a?(AbstractMatrix))
-      # assert(other.shape == @shape)
-      # assert(old = self.clone)
+      assert(other.is_a?(TridiagonalSparseMatrix))
+      assert(other.numRows == @numRows)
+      assert(other.numColumns == @numColumns)
+      assert(old = self.clone)
 
       for i in 0...@main_diagonal.size
         @main_diagonal[i] = @main_diagonal[i] - other.main_diagonal[i]
@@ -247,27 +239,26 @@ module SparseMatrix
       end
 
       # Post:
-      # for i in old.shape.m
-      #   for j in old.shape.n
-      #     assert(self[i,j] == old[i,j] - other[i,j])
-      #   end
-      # end
+      # Check that dimensions haven't been mutated
+      assert(old.numColumns == self.numColumns)
+      assert(old.numRows == self.numRows)
     end
 
     def transpose()
       # Pre:
-      # assert(old = self.clone)
+      assert(old = self.clone)
 
       temp_vector = @lower_diagonal
       @lower_diagonal = @upper_diagonal
       @upper_diagonal = temp_vector
 
+      tempElementCount = @numColumns
+      @numColumns = @numRows
+      @numRows = tempElementCount
+
       # Post:
-      # for i in old.shape.m
-      #   for j in old.shape.n
-      #     assert(old[i,j] == self[j,i])
-      #   end
-      # end
+      assert(old.numColumns == self.numRows)
+      assert(old.numRows == self.numColumns)
     end
 
     def multiply(other)
@@ -301,10 +292,12 @@ module SparseMatrix
   s1 = [[1,2,0,0], [3,4,5,0], [0,6,7,8], [0,0,9,10]]
   s2 = [[3,1,0,0], [5,2,6,0], [0,1,5,1], [0,0,2,1]]
   s3 = [[1,2,0], [4,5,6], [0,8,9]]
-
+=begin
   matrix_1 = TridiagonalSparseMatrix.new(s1)
   matrix_2 = TridiagonalSparseMatrix.new(s2)
   matrix_3 = TridiagonalSparseMatrix.new(s3)
+
+=end
 
   # p "Accessing Elements of matrix"
   # p matrix_3[0,0] ,matrix_3[0,1], matrix_3[0,2]
