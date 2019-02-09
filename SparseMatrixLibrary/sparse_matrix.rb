@@ -1,7 +1,8 @@
 module SparseMatrix
 
 require 'test/unit'
-include Test::Unit::Assertions
+require 'nmatrix'
+
   class AbstractMatrix 
 
     def [](m, n)
@@ -39,22 +40,34 @@ include Test::Unit::Assertions
   end
 
   class YaleSparseMatrix < AbstractMatrix
-    attr_accessor :numRows, :numColumns
+    include Test::Unit::Assertions
+    attr_reader :numRows, :numColumns, :nmatrix
+
     def initialize(numRows, numColumns)
       @numColumns = numColumns
       @numRows = numRows
+      @nmatrix = NMatrix.zeros([numRows, numColumns], dytpe: :int32, stype: :yale)
+    end
+
+    def update_dimensions()
+      @numRows = @nmatrix.shape[0]
+      @numColumns = @nmatrix.shape[1]
     end
 
     def [](m, n)
       # Pre:
-      assert(0 <= m < @numRows)
-      assert(0 <= n < @numColumns)
+      assert((0 <= m) && (m < @numRows))
+      assert((0 <= n) && (n < @numColumns))
+
+      @nmatrix[m, n]
     end
 
     def []=(m, n, v)
       # Pre:
-      assert(0 <= m < @numRows)
-      assert(0 <= n < @numColumns)
+      assert((0 <= m) && (m < @numRows))
+      assert((0 <= n) && (n < @numColumns))
+
+      @nmatrix[m, n] = v
 
       # Post:
       assert(self[m,n] == v)
@@ -64,9 +77,12 @@ include Test::Unit::Assertions
       # Pre:
       old = self.clone
 
+      @nmatrix = @nmatrix.transpose
+      update_dimensions
+
       # Post:
-      for i in old.numColumns
-        for j in old.numRows
+      for i in 0...old.numRows
+        for j in 0...old.numColumns
           assert(old[i,j] == self[j,i])
         end
       end
@@ -79,9 +95,11 @@ include Test::Unit::Assertions
       assert(other.numRows == @numRows)
       assert(old = self.clone)
 
+      @nmatrix = @nmatrix + other.nmatrix
+
       # Post:
-      for i in old.numColumns
-        for j in old.numRows
+      for i in 0...old.numRows
+        for j in 0...old.numColumns
           assert(self[i,j] == old[i,j] + other[i,j])
         end
       end
@@ -94,21 +112,39 @@ include Test::Unit::Assertions
       assert(other.numRows == @numRows)
       assert(old = self.clone)
 
+      @nmatrix = @nmatrix - other.nmatrix
+
       # Post:
-      for i in old.numColumns
-      for j in old.numRows
+      for i in 0...old.numRows
+        for j in 0...old.numColumns
           assert(self[i,j] == old[i,j] - other[i,j])
         end
       end
     end
 
     def multiply(other)
+      # Pre:
+      assert(other.is_a?(YaleSparseMatrix))
+      assert(@numColumns == other.numRows)
+      old_numRows = @numRows
+      old_numColumns = @numColumns
+
+      @nmatrix = @nmatrix.dot(other.nmatrix)
+      update_dimensions
+
+      # Post:
+      assert(@numRows == old_numRows)
+      assert(@numColumns == other.numColumns)
     end
 
     def determinant()
+      # Pre:
+      assert(@numRows == @numColumns)
+      @nmatrix.det
     end
 
     def inverse()
+      raise NotImplementedError
     end
 
   end
