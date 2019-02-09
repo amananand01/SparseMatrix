@@ -150,6 +150,11 @@ require 'nmatrix'
       @nmatrix = @nmatrix.cast(:stype => :yale)
     end
 
+    def collect()
+      assert(block_given?)
+      @nmatrix.each_with_indices{|v, m, n| self[m,n] = yield(v)}
+    end
+
     def to_s()
       @nmatrix.to_s
     end
