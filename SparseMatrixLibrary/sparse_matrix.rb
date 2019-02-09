@@ -43,10 +43,9 @@ require 'nmatrix'
     include Test::Unit::Assertions
     attr_reader :numRows, :numColumns, :nmatrix
 
-    def initialize(numRows, numColumns)
-      @numColumns = numColumns
-      @numRows = numRows
-      @nmatrix = NMatrix.zeros([numRows, numColumns], dytpe: :int32, stype: :yale)
+    def initialize(nmatrix)
+      @nmatrix = nmatrix
+      update_dimensions
     end
 
     def update_dimensions()
@@ -149,6 +148,10 @@ require 'nmatrix'
       @nmatrix = @nmatrix.cast(:stype => :dense)
       @nmatrix = @nmatrix.inverse
       @nmatrix = @nmatrix.cast(:stype => :yale)
+    end
+
+    def to_s()
+      @nmatrix.to_s
     end
 
   end

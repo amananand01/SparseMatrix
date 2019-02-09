@@ -14,15 +14,36 @@ end
 
 # The factories take care of creating the right shape object and passing it in
 
-class SparseMatrixFactory include AbstractSparseMatrixFactory
-    def self.create(classname, matrixarray)
-        # check for size and data types in the array
-        classname.new(matrixarray)
-    end
+class YaleSparseMatrixFactory include AbstractSparseMatrixFactory, SparseMatrix, Test::Unit::Assertions
+  def CreateIdentity(numRows, numColumns)
+    assert(numRows > 0)
+    assert(numColumns > 0)
+    assert(numRows == numColumns)
+    SparseMatrix::YaleSparseMatrix.new(NMatrix.eye([numRows, numColumns], dtype: :int32, stype: :yale, default: 0))
+  end
 
-    def self.create(classname, size)
-        raise NotImplementedError, "CreateSparseMatrix(classname, size) for SparseMatrixFactory has not been implemented!"
+  def CreateZeroes(numRows, numColumns)
+    assert(numRows > 0)
+    assert(numColumns > 0)
+    SparseMatrix::YaleSparseMatrix.new(NMatrix.zeros([numRows, numColumns], dtype: :int32, stype: :yale, default: 0))
+  end
+
+  def CreateOnes(numRows, numColumns)
+    assert(numRows > 0)
+    assert(numColumns > 0)
+    SparseMatrix::YaleSparseMatrix.new(NMatrix.ones([numRows, numColumns], dtype: :int32, stype: :yale, default: 0))
+  end
+
+  def Create(*params)
+    numRows = params.length
+    assert(numRows > 0)
+    numColumns = params[0].length
+    assert(numColumns > 0)
+    for i in 0...numRows
+      assert(params[i].length == numColumns)
     end
+    SparseMatrix::YaleSparseMatrix.new(N[*params << {stype: :yale, dtype: :int32, default: 0}])
+  end
 end
 
 class TridiagonalMatrixFactory include AbstractSparseMatrixFactory
