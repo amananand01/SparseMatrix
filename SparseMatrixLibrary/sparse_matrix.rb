@@ -327,6 +327,7 @@ require 'nmatrix'
     end
 
     def compute_continuant(continuentMemo, mainDiagonalIndex)
+      # The continuent is a special sequence that represents the determinant of a tri-diagonal matrix
       if continuentMemo.key?(mainDiagonalIndex)
         return continuentMemo[mainDiagonalIndex]
 
@@ -337,7 +338,11 @@ require 'nmatrix'
     end
 
     def inverse()
+      continuentMemo = Hash.new # (fn, result)
+      continuentMemo.store(0, 1)
+      continuentMemo.store(1, @main_diagonal[0])
 
+      
     end
 
   end
