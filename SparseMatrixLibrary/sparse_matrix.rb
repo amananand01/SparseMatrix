@@ -144,7 +144,11 @@ require 'nmatrix'
     end
 
     def inverse()
-      raise NotImplementedError
+      # Unfortunately, NMatrix does not provide implementation for inverse for
+      # non-dense matrices, thus the cast.
+      @nmatrix = @nmatrix.cast(:stype => :dense)
+      @nmatrix = @nmatrix.inverse
+      @nmatrix = @nmatrix.cast(:stype => :yale)
     end
 
   end
