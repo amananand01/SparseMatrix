@@ -37,6 +37,10 @@ require 'nmatrix'
       raise NotImplementedError
     end
 
+    def to2DArray()
+      raise NotImplementedError
+    end
+
   end
 
   class YaleSparseMatrix < AbstractMatrix
@@ -157,6 +161,10 @@ require 'nmatrix'
 
     def to_s()
       @nmatrix.to_s
+    end
+
+    def to2DArray
+      @nmatrix.to_a
     end
 
   end
