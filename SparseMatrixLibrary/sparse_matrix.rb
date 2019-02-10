@@ -37,16 +37,19 @@ require 'nmatrix'
       raise NotImplementedError
     end
 
+    def to2DArray()
+      raise NotImplementedError
+    end
+
   end
 
   class YaleSparseMatrix < AbstractMatrix
     include Test::Unit::Assertions
     attr_reader :numRows, :numColumns, :nmatrix
 
-    def initialize(numRows, numColumns)
-      @numColumns = numColumns
-      @numRows = numRows
-      @nmatrix = NMatrix.zeros([numRows, numColumns], dytpe: :int32, stype: :yale)
+    def initialize(nmatrix)
+      @nmatrix = nmatrix
+      update_dimensions
     end
 
     def update_dimensions()
@@ -151,6 +154,19 @@ require 'nmatrix'
       @nmatrix = @nmatrix.cast(:stype => :yale)
     end
 
+    def collect()
+      assert(block_given?)
+      @nmatrix.each_with_indices{|v, m, n| self[m,n] = yield(v)}
+    end
+
+    def to_s()
+      @nmatrix.to_s
+    end
+
+    def to2DArray
+      @nmatrix.to_a
+    end
+
   end
 
   class TridiagonalSparseMatrix < AbstractMatrix
@@ -220,8 +236,34 @@ require 'nmatrix'
     # setting the value
     def []=(m, n, v)
       # Pre:
-      raise IndexError unless (0 <= m < @numRows)
-      raise IndexError unless (0 <= n < @numColumns)
+      raise IndexError unless (0 <= m and m < @numRows)
+      raise IndexError unless (0 <= n and n < @numColumns)
+
+      # index out of bound error
+      if m >= main_diagonal.size or n>=main_diagonal.size
+        raise "Index out of bound error"
+      end
+
+      # return 0 as indices not in the diagonals
+      if m!=n and m!=n-1 and m!=n+1
+        raise "Error: In Tri-diagonal Matrix, can only change the 3 diagonal values"
+      end
+
+      # return from the main diagonal
+      if m==n and m < main_diagonal.size
+        main_diagonal[m] = v
+
+        # return from the first diagonal below main diagonal
+      elsif m==n+1 and m - 1 < lower_diagonal.size
+        lower_diagonal[m-1] = v
+
+        # return from the first diagonal above main diagonal
+      elsif m==n-1 and m < upper_diagonal.size
+        upper_diagonal[m] = v
+
+      else
+        raise "Error"
+      end
 
       # Post:
       raise "Set operation failed" unless (self[m,n] == v)
@@ -236,20 +278,9 @@ require 'nmatrix'
 
       for i in 0...@main_diagonal.size
         @main_diagonal[i] = @main_diagonal[i] + other.main_diagonal[i]
+        if i < @lower_diagonal.size then @lower_diagonal[i] = @lower_diagonal[i] + other.lower_diagonal[i] end
+        if i < @upper_diagonal.size then @upper_diagonal[i] = @upper_diagonal[i] + other.upper_diagonal[i] end
       end
-
-      for i in 0...@lower_diagonal.size
-        @lower_diagonal[i] = @lower_diagonal[i] + other.lower_diagonal[i]
-      end
-
-      for i in 0...@upper_diagonal.size
-        @upper_diagonal[i] = @upper_diagonal[i] + other.upper_diagonal[i]
-      end
-
-      # TODO: delete it
-      p @main_diagonal
-      p @lower_diagonal
-      p @upper_diagonal
 
       # Post:
       # Check that dimensions haven't been mutated
@@ -266,14 +297,8 @@ require 'nmatrix'
 
       for i in 0...@main_diagonal.size
         @main_diagonal[i] = @main_diagonal[i] - other.main_diagonal[i]
-      end
-
-      for i in 0...@lower_diagonal.size
-        @lower_diagonal[i] = @lower_diagonal[i] - other.lower_diagonal[i]
-      end
-
-      for i in 0...@upper_diagonal.size
-        @upper_diagonal[i] = @upper_diagonal[i] - other.upper_diagonal[i]
+        if i < @lower_diagonal.size then @lower_diagonal[i] = @lower_diagonal[i] - other.lower_diagonal[i] end
+        if i < @upper_diagonal.size then @upper_diagonal[i] = @upper_diagonal[i] - other.upper_diagonal[i] end
       end
 
       # Post:
@@ -305,14 +330,8 @@ require 'nmatrix'
 
       for i in 0...@main_diagonal.size
         @main_diagonal[i] = @main_diagonal[i] * other.main_diagonal[i]
-      end
-
-      for i in 0...@lower_diagonal.size
-        @lower_diagonal[i] = @lower_diagonal[i] * other.lower_diagonal[i]
-      end
-
-      for i in 0...@upper_diagonal.size
-        @upper_diagonal[i] = @upper_diagonal[i] * other.upper_diagonal[i]
+        if i < @lower_diagonal.size then @lower_diagonal[i] = @lower_diagonal[i] * other.lower_diagonal[i] end
+        if i < @upper_diagonal.size then @upper_diagonal[i] = @upper_diagonal[i] * other.upper_diagonal[i] end
       end
 
     end
@@ -352,11 +371,21 @@ require 'nmatrix'
   s2 = [[3,1,0,0], [5,2,6,0], [0,1,5,1], [0,0,2,1]]
   s3 = [[1,2,0], [4,5,6], [0,8,9]]
 
+  # matrix_1 = TridiagonalSparseMatrix.new(s1,4,4)
+  # matrix_2 = TridiagonalSparseMatrix.new(s1,4,4)
+  # p matrix_1[3,2]
+  # p matrix_1[0,1]
+  #
+  # matrix_1[3,2]=1
+  # matrix_1[0,1]= 4
+  #
+  # p matrix_1[3,2]
+  # p matrix_1[0,1]
 
   # matrix_1.add(matrix_2)
   # matrix_1.subtract(matrix_2)
   # matrix_1.multiply(matrix_2)
   # matrix_1.transpose
-
+  #
 end
 
