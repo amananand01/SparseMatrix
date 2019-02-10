@@ -1,7 +1,7 @@
 module SparseMatrix
 
 require 'test/unit'
-require 'nmatrix'
+#require 'nmatrix'
 
   class AbstractMatrix 
 
@@ -42,7 +42,7 @@ require 'nmatrix'
     end
 
   end
-
+=begin
   class YaleSparseMatrix < AbstractMatrix
     include Test::Unit::Assertions
     attr_reader :numRows, :numColumns, :nmatrix
@@ -168,7 +168,7 @@ require 'nmatrix'
     end
 
   end
-
+=end
   class TridiagonalSparseMatrix < AbstractMatrix
     attr_reader :main_diagonal
     attr_reader :lower_diagonal
@@ -345,22 +345,46 @@ require 'nmatrix'
       return compute_continuant(continuentMemo, @main_diagonal.size)
     end
 
-    def compute_continuant(continuentMemo, mainDiagonalIndex)
+    def compute_continuant(continuentMemo, sequenceIndex)
       # The continuent is a special sequence that represents the determinant of a tri-diagonal matrix
-      if continuentMemo.key?(mainDiagonalIndex)
-        return continuentMemo[mainDiagonalIndex]
+      if continuentMemo.key?(sequenceIndex)
+        return continuentMemo[sequenceIndex]
 
       else
-        result = @main_diagonal[mainDiagonalIndex - 1]*compute_continuant(continuentMemo, mainDiagonalIndex - 1) - @lower_diagonal[mainDiagonalIndex - 2] * @upper_diagonal[mainDiagonalIndex - 2] * compute_continuant(continuentMemo, mainDiagonalIndex - 2)
+        result = @main_diagonal[sequenceIndex - 1]*compute_continuant(continuentMemo, sequenceIndex - 1) - @lower_diagonal[sequenceIndex - 2] * @upper_diagonal[sequenceIndex - 2] * compute_continuant(continuentMemo, sequenceIndex - 2)
+        continuentMemo.store(sequenceIndex, result)
+        return result
+      end
+    end
+
+    def compute_phi(phiMemo, sequenceIndex)
+      # The phi sequence is required to compute the inverse of a tri-diagonal matrix 
+      if phiMemo.key?(sequenceIndex)
+        return phiMemo[sequenceIndex]
+      
+      else
+        result = @main_diagonal[sequenceIndex-1]*compute_phi(phiMemo, sequenceIndex+1) - @lower_diagonal[sequenceIndex-1]*@upper_diagonal[sequenceIndex-1]*compute_phi(phiMemo, sequenceIndex+2)
+        phiMemo.store(sequenceIndex, result)
         return result
       end
     end
 
     def inverse()
+      # For Tri-diagonal matrices we use R. A. Usmani's specialized algorithms
+      # Pre:
+      raise "Cannot call inverse() on non-square matrices" unless (@numColumns == @numRows)
+
+      n = @main_diagonal.size
+      
       continuentMemo = Hash.new # (fn, result)
       continuentMemo.store(0, 1)
       continuentMemo.store(1, @main_diagonal[0])
+      compute_continuant(continuentMemo, n)
 
+      phiMemo = Hash.new
+      phiMemo.store(n + 1, 1)
+      phiMemo.store(n, @main_diagonal[n - 1])
+      phi_n = compute_phi(phiMemo, 1)
       
     end
 
@@ -370,17 +394,12 @@ require 'nmatrix'
   s1 = [[1,2,0,0], [3,4,5,0], [0,6,7,8], [0,0,9,10]]
   s2 = [[3,1,0,0], [5,2,6,0], [0,1,5,1], [0,0,2,1]]
   s3 = [[1,2,0], [4,5,6], [0,8,9]]
+  s4 = [[5,1,0,0,0], [1,4,2,0,0], [0,2,3,4,0], [0,0,4,2,3], [0,0,0,3,1]]
 
-  # matrix_1 = TridiagonalSparseMatrix.new(s1,4,4)
-  # matrix_2 = TridiagonalSparseMatrix.new(s1,4,4)
-  # p matrix_1[3,2]
-  # p matrix_1[0,1]
-  #
-  # matrix_1[3,2]=1
-  # matrix_1[0,1]= 4
-  #
-  # p matrix_1[3,2]
-  # p matrix_1[0,1]
+  triMatrix = TridiagonalSparseMatrix.new(s4, 5, 5)
+  puts triMatrix
+  triMatrix.inverse()
+  puts triMatrix
 
   # matrix_1.add(matrix_2)
   # matrix_1.subtract(matrix_2)
