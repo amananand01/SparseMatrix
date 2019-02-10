@@ -168,7 +168,7 @@ require 'test/unit'
     end
 
   end
-  
+
   class TridiagonalSparseMatrix < AbstractMatrix
     attr_reader :main_diagonal
     attr_reader :lower_diagonal
@@ -204,11 +204,6 @@ require 'test/unit'
       raise IndexError unless (0 <= m and m < @numRows)
       raise IndexError unless (0 <= n and n < @numColumns)
 
-      # index out of bound error
-      if m >= main_diagonal.size or n>=main_diagonal.size
-        raise "Index out of bound error"
-      end
-
       # return 0 as indices not in the diagonals
       if m!=n and m!=n-1 and m!=n+1
         return 0
@@ -238,11 +233,6 @@ require 'test/unit'
       # Pre:
       raise IndexError unless (0 <= m and m < @numRows)
       raise IndexError unless (0 <= n and n < @numColumns)
-
-      # index out of bound error
-      if m >= main_diagonal.size or n>=main_diagonal.size
-        raise "Index out of bound error"
-      end
 
       # return 0 as indices not in the diagonals
       if m!=n and m!=n-1 and m!=n+1
@@ -398,8 +388,17 @@ require 'test/unit'
       end
 
       return result
+    end
 
-      
+    def to2DArray()
+      result = Array.new(@numRows) {Array.new(@numColumns)}
+      for i in 0...result.size
+        for j in 0...result[i].size
+          result[i][j] = self[i, j]
+        end
+      end
+
+      return result
     end
 
     private
@@ -435,9 +434,6 @@ require 'test/unit'
   s2 = [[3,1,0,0], [5,2,6,0], [0,1,5,1], [0,0,2,1]]
   s3 = [[1,2,0], [4,5,6], [0,8,9]]
   s4 = [[5,1,0,0,0], [1,4,2,0,0], [0,2,3,4,0], [0,0,4,2,3], [0,0,0,3,1]]
-
-  triMatrix = TridiagonalSparseMatrix.new(s4, 5, 5)
-  triMatrixInverted = triMatrix.inverse()
 
   # matrix_1.add(matrix_2)
   # matrix_1.subtract(matrix_2)
