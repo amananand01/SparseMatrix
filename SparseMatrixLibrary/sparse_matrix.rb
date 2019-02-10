@@ -1,7 +1,7 @@
 module SparseMatrix
 
 require 'test/unit'
-#require 'nmatrix'
+require 'nmatrix'
 
   class AbstractMatrix 
 
