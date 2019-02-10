@@ -42,7 +42,7 @@ require 'test/unit'
     end
 
   end
-=begin
+
   class YaleSparseMatrix < AbstractMatrix
     include Test::Unit::Assertions
     attr_reader :numRows, :numColumns, :nmatrix
@@ -168,7 +168,7 @@ require 'test/unit'
     end
 
   end
-=end
+  
   class TridiagonalSparseMatrix < AbstractMatrix
     attr_reader :main_diagonal
     attr_reader :lower_diagonal
@@ -337,6 +337,8 @@ require 'test/unit'
     end
 
     def determinant()
+      # For tri-diagonal matrices, the determinant is represented by a special
+      # sequence called the continuent
       continuentMemo = Hash.new # (fn, result)
       continuentMemo.store(-1, 0)
       continuentMemo.store(0, 1)
@@ -344,6 +346,63 @@ require 'test/unit'
 
       return compute_continuant(continuentMemo, @main_diagonal.size)
     end
+
+    def inverse()
+      # For Tri-diagonal matrices we use R. A. Usmani's specialized algorithm
+      # Since the inverse of a tri-diagonal matrix may not be tri-diagonal,
+      # we opt to return a 2D-array instead
+      # Pre:
+      raise "Cannot call inverse() on non-square matrices" unless (@numColumns == @numRows)
+
+      n = @main_diagonal.size
+      
+      result = Array.new(@numRows) {Array.new(@numColumns)}
+
+      continuentMemo = Hash.new # (fn, result)
+      continuentMemo.store(0, 1)
+      continuentMemo.store(1, @main_diagonal[0])
+      compute_continuant(continuentMemo, n)
+
+      phiMemo = Hash.new
+      phiMemo.store(n + 1, 1)
+      phiMemo.store(n, @main_diagonal[n - 1])
+      phi_n = compute_phi(phiMemo, 1)
+
+      for i in 0...n
+        for j in 0...n
+          if i == j
+            recurrenceCoeff = (continuentMemo[i].to_f*phiMemo[j+2].to_f)/continuentMemo[n].to_f
+            result[i][j] = recurrenceCoeff
+          
+          elsif i < j
+            recurrenceCoeff = (continuentMemo[i].to_f*phiMemo[j+2].to_f)/continuentMemo[n].to_f
+            signCoeff = (-1)**(i+j+2)
+            elementTerm = 1.to_f
+            for k in i...j
+              elementTerm = elementTerm*@upper_diagonal[k].to_f
+            end
+            result[i][j] = recurrenceCoeff*elementTerm*signCoeff
+
+          elsif i > j
+            recurrenceCoeff = (continuentMemo[j].to_f*phiMemo[i+2].to_f)/continuentMemo[n].to_f
+            signCoeff = (-1)**(i+j+2)
+            elementTerm = 1.to_f
+            for k in j...i
+              elementTerm = elementTerm*@lower_diagonal[k].to_f
+            end
+
+            result[i][j] = recurrenceCoeff*elementTerm*signCoeff
+
+          end
+        end
+      end
+
+      return result
+
+      
+    end
+
+    private
 
     def compute_continuant(continuentMemo, sequenceIndex)
       # The continuent is a special sequence that represents the determinant of a tri-diagonal matrix
@@ -369,61 +428,6 @@ require 'test/unit'
       end
     end
 
-    def inverse()
-      # For Tri-diagonal matrices we use R. A. Usmani's specialized algorithms
-      # Since the inverse of a tri-diagonal matrix may not be tri-diagonal,
-      # we opt to return a 2D-array instead
-      # Pre:
-      raise "Cannot call inverse() on non-square matrices" unless (@numColumns == @numRows)
-
-      n = @main_diagonal.size
-      
-      result = Array.new(@numRows) {Array.new(@numColumns)}
-
-      continuentMemo = Hash.new # (fn, result)
-      continuentMemo.store(0, 1)
-      continuentMemo.store(1, @main_diagonal[0])
-      compute_continuant(continuentMemo, n)
-
-      phiMemo = Hash.new
-      phiMemo.store(n + 1, 1)
-      phiMemo.store(n, @main_diagonal[n - 1])
-      phi_n = compute_phi(phiMemo, 1)
-
-      for i in 0...n
-        for j in 0...n
-          recurrenceCoeff = (continuentMemo[i].to_f*phiMemo[j+2].to_f)/continuentMemo[n].to_f
-          if i == j
-            result[i][j] = recurrenceCoeff
-          
-          elsif i < j
-            signCoeff = (-1)**(i+j+2)
-            elementTerm = 1.to_f
-            for k in i...j
-              elementTerm = elementTerm*@upper_diagonal[k].to_f
-            end
-            result[i][j] = recurrenceCoeff*elementTerm*signCoeff
-
-          elsif i > j
-            signCoeff = (-1)**(i+j+2)
-            elementTerm = 1.to_f
-            for k in i...j
-              elementTerm = elementTerm*@lower_diagonal[k].to_f
-            end
-
-            result[i][j] = recurrenceCoeff*elementTerm*signCoeff
-
-          end
-        end
-        print result[i]
-        puts ""
-      end
-
-      return result
-
-      
-    end
-
   end
 
   # TODO: DELETE IT, ONLY USING FOR TESTING
@@ -434,7 +438,6 @@ require 'test/unit'
 
   triMatrix = TridiagonalSparseMatrix.new(s4, 5, 5)
   triMatrixInverted = triMatrix.inverse()
-  print triMatrixInverted
 
   # matrix_1.add(matrix_2)
   # matrix_1.subtract(matrix_2)
