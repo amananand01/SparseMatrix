@@ -52,6 +52,16 @@ require 'nmatrix'
       update_dimensions
     end
 
+
+    def ==(other)
+      raise TypeError unless (other.is_a?(YaleSparseMatrix))
+      for i in 0..self.numRows-1
+        for j in 0..self.numColumns-1
+          self[i,j] == other[i,j]
+        end
+      end
+    end
+
     def update_dimensions()
       @numRows = @nmatrix.shape[0]
       @numColumns = @nmatrix.shape[1]
@@ -197,6 +207,35 @@ require 'nmatrix'
         end
       end
 
+    end
+
+    def to_string()
+      puts("main diagonal :")
+      for i in @main_diagonal
+        print(i)
+      end
+      puts()
+      puts("lowers diagonal :")
+      for i in @lower_diagonal
+        print(i)
+      end
+      puts()
+      puts("lowers diagonal :")
+      for i in @upper_diagonal
+        print(i)
+      end
+      puts()
+
+
+    end
+# self define euqal operation
+    def ==(other)
+      raise TypeError unless (other.is_a?(TridiagonalSparseMatrix))
+      self.main_diagonal == other.main_diagonal
+      self.lower_diagonal == other.lower_diagonal
+      self.upper_diagonal == other.upper_diagonal
+      self.numColumns == other.numColumns
+      self.numRows == other.numRows
     end
 
     def [](m, n)

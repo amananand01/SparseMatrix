@@ -19,7 +19,8 @@ module AbstractSparseMatrixFactory
     end
 end
 
-class YaleSparseMatrixFactory include AbstractSparseMatrixFactory, SparseMatrix, Test::Unit::Assertions
+class YaleSparseMatrixFactory
+  include AbstractSparseMatrixFactory, SparseMatrix, Test::Unit::Assertions
   def CreateIdentity(size)
     assert(size > 0)
     SparseMatrix::YaleSparseMatrix.new(NMatrix.eye([size, size], dtype: :int32, stype: :yale, default: 0))
@@ -49,7 +50,8 @@ class YaleSparseMatrixFactory include AbstractSparseMatrixFactory, SparseMatrix,
   end
 end
 
-class TridiagonalMatrixFactory include AbstractSparseMatrixFactory, SparseMatrix, Test::Unit::Assertions
+class TridiagonalMatrixFactory
+  include AbstractSparseMatrixFactory, SparseMatrix, Test::Unit::Assertions
     
     def CreateIdentity(size)
         inputMatrix = Array.new(size) {Array.new(size, 0)}
