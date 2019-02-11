@@ -209,7 +209,7 @@ class Sparse_matrix_test < Test::Unit::TestCase
         assert_in_delta(one[i,j],c[i,j],0.001)
       end
     end
-    
+
   end
 
 end
