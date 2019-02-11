@@ -1,4 +1,5 @@
 require_relative './sparse_matrix'
+require_relative './matrix_factory'
 require 'test/unit'
 
 class Sparse_matrix_test < Test::Unit::TestCase
@@ -9,9 +10,11 @@ class Sparse_matrix_test < Test::Unit::TestCase
     # issue on finding the determinnat
     #
     @sparse_nor_2=N[
-        [1,10,100],
-        [1090,2,110],
-        [10,0,23]
+        [1,2,3,4,5],
+        [0,0,2,4,5],
+        [0,2,1,1,1],
+        [3,4,5,9,9],
+        [2,5,6,7,8]
     ]
 
     #
@@ -185,17 +188,28 @@ class Sparse_matrix_test < Test::Unit::TestCase
 # issue on the determinant and find teh inverse
 
   def test_determinant
-    sparse_matrix_1 = SparseMatrix::YaleSparseMatrix.new(@sparse_nor_2)
-    result = sparse_matrix_1.determinant()
-    # puts(result)
+    f = YaleSparseMatrixFactory.new()
+    c = f.Create([1,2,3,4,5],[0,0,2,4,5],[0,2,1,1,1],[3,4,5,9,9],[2,5,6,7,8])
+    result = c.determinant()
+    assert_equal(result,15)
     # assert_equal(result , )
 
 
   end
   def test_inverse
-    sparse_matric = SparseMatrix::YaleSparseMatrix.new(@sparse_nor_2)
-    # sparse_matric::inverse()
+    f = YaleSparseMatrixFactory.new
+    c = f.Create([1,2,3,4,5],[0,0,2,4,5],[0,2,1,1,1],[3,4,5,9,9],[2,5,6,7,8])
+    d = c.clone()
+    d.inverse
+    c.multiply(d)
 
+    one = f.CreateIdentity(5)
+    for i in 0..4
+      for j in 0..4
+        assert_in_delta(one[i,j],c[i,j],0.001)
+      end
+    end
+    
   end
 
 end
