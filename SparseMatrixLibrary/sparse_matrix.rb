@@ -468,16 +468,5 @@ require 'nmatrix'
 
   end
 
-  # TODO: DELETE IT, ONLY USING FOR TESTING
-  s1 = [[1,2,0,0], [3,4,5,0], [0,6,7,8], [0,0,9,10]]
-  s2 = [[3,1,0,0], [5,2,6,0], [0,1,5,1], [0,0,2,1]]
-  s3 = [[1,2,0], [4,5,6], [0,8,9]]
-  s4 = [[5,1,0,0,0], [1,4,2,0,0], [0,2,3,4,0], [0,0,4,2,3], [0,0,0,3,1]]
-
-  # matrix_1.add(matrix_2)
-  # matrix_1.subtract(matrix_2)
-  # matrix_1.multiply(matrix_2)
-  # matrix_1.transpose
-  #
 end
 

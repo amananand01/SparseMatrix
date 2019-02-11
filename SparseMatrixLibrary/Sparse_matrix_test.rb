@@ -186,8 +186,8 @@ class Sparse_matrix_test < Test::Unit::TestCase
 
   def test_determinant
     sparse_matrix_1 = SparseMatrix::YaleSparseMatrix.new(@sparse_nor_2)
-    result = sparse_matrix_1::determinant()
-    puts(result)
+    result = sparse_matrix_1.determinant()
+    # puts(result)
     # assert_equal(result , )
 
 
