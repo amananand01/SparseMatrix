@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="409818c7-2c9d-423d-85b9-c6ed8a8770d1" name="Default Changelist" comment="">
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/SparseMatrixLibrary/sparse_matrix.rb" beforeDir="false" afterPath="$PROJECT_DIR$/SparseMatrixLibrary/sparse_matrix.rb" afterDir="false" />
+>>>>>>> 57b9f724b5142b4cec3c155ebd16d7bc29906498
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,16 +19,25 @@
     <SUITE FILE_PATH="coverage/SparseMatrix@haha.rcov" NAME="haha Coverage Results" MODIFIED="1549855038953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/SparseMatrixLibrary" MODULE_NAME="SparseMatrix" />
     <SUITE FILE_PATH="coverage/SparseMatrix@Run_test__Sparse_matrix_test___SparseMatrix.rcov" NAME="Run test 'Sparse_matrix_test': SparseMatrix Coverage Results" MODIFIED="1549870151988" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="SparseMatrix" />
     <SUITE FILE_PATH="coverage/SparseMatrix@Run_test__sparse_test___SparseMatrix.rcov" NAME="Run test 'sparse_test': SparseMatrix Coverage Results" MODIFIED="1549864901933" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="SparseMatrix" />
+    <SUITE FILE_PATH="coverage/SparseMatrix@assignment1_main.rcov" NAME="assignment1_main Coverage Results" MODIFIED="1549911810877" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="SparseMatrix" />
     <SUITE FILE_PATH="coverage/SparseMatrix@test.rcov" NAME="test Coverage Results" MODIFIED="1549504397018" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/SparseMatrixLibrary" MODULE_NAME="SparseMatrix" />
+<<<<<<< HEAD
+=======
     <SUITE FILE_PATH="coverage/SparseMatrix@sparse_matrix.rcov" NAME="sparse_matrix Coverage Results" MODIFIED="1549856128274" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/SparseMatrixLibrary" MODULE_NAME="SparseMatrix" />
+>>>>>>> 57b9f724b5142b4cec3c155ebd16d7bc29906498
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SparseMatrixLibrary/sparse_matrix.rb">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="230">
+              <caret line="481" column="3" lean-forward="true" selection-start-line="481" selection-start-column="3" selection-end-line="481" selection-end-column="3" />
+=======
             <state relative-caret-position="577">
               <caret line="469" lean-forward="true" selection-start-line="469" selection-end-line="469" />
+>>>>>>> 57b9f724b5142b4cec3c155ebd16d7bc29906498
             </state>
           </provider>
         </entry>
@@ -50,15 +63,28 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SparseMatrixLibrary/Sparse_matrix_test.rb">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="107">
+              <caret line="184" column="47" lean-forward="true" selection-start-line="184" selection-start-column="47" selection-end-line="184" selection-end-column="47" />
+=======
             <state relative-caret-position="619">
               <caret line="198" column="5" selection-start-line="198" selection-start-column="5" selection-end-line="198" selection-end-column="5" />
+>>>>>>> 57b9f724b5142b4cec3c155ebd16d7bc29906498
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assignment1_main.rb">
+<<<<<<< HEAD
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="7" selection-end-column="22" />
+            </state>
+          </provider>
+=======
           <provider selected="true" editor-type-id="text-editor" />
+>>>>>>> 57b9f724b5142b4cec3c155ebd16d7bc29906498
         </entry>
       </file>
     </leaf>
@@ -154,22 +180,27 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Test::Unit/Shoulda/Minitest.Run test 'Trigdiagonal_matrix_test': SparseMatrix">
-    <configuration name="haha" type="RubyRunConfigurationType" factoryName="Ruby" temporary="true">
+  <component name="RunManager" selected="Ruby.assignment1_main">
+    <configuration name="assignment1_main" type="RubyRunConfigurationType" factoryName="Ruby" temporary="true">
       <module name="SparseMatrix" />
       <RUBY_RUN_CONFIG NAME="RUBY_ARGS" VALUE="" />
-      <RUBY_RUN_CONFIG NAME="WORK DIR" VALUE="$MODULE_DIR$/SparseMatrixLibrary" />
+      <RUBY_RUN_CONFIG NAME="WORK DIR" VALUE="$MODULE_DIR$" />
       <RUBY_RUN_CONFIG NAME="SHOULD_USE_SDK" VALUE="false" />
       <RUBY_RUN_CONFIG NAME="ALTERN_SDK_NAME" VALUE="" />
       <RUBY_RUN_CONFIG NAME="myPassParentEnvs" VALUE="true" />
       <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
       <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
+<<<<<<< HEAD
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" track_test_folders="true" runner="rcov" />
+      <RUBY_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="$MODULE_DIR$/assignment1_main.rb" />
+=======
       <EXTENSION ID="RubyCoverageRunConfigurationExtension" track_test_folders="true" runner="rcov">
         <COVERAGE_PATTERN ENABLED="true">
           <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
         </COVERAGE_PATTERN>
       </EXTENSION>
       <RUBY_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="$MODULE_DIR$/SparseMatrixLibrary/haha.rb" />
+>>>>>>> 57b9f724b5142b4cec3c155ebd16d7bc29906498
       <RUBY_RUN_CONFIG NAME="SCRIPT_ARGS" VALUE="" />
       <method v="2" />
     </configuration>
@@ -280,11 +311,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Ruby.assignment1_main" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.Run test 'Trigdiagonal_matrix_test': SparseMatrix" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.Run test 'Sparse_matrix_test': SparseMatrix" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.Run test 'sparse_test': SparseMatrix" />
         <item itemvalue="Ruby.sparse_matrix" />
-        <item itemvalue="Ruby.haha" />
       </list>
     </recent_temporary>
   </component>
@@ -311,17 +342,15 @@
       <workItem from="1549862955446" duration="1984000" />
       <workItem from="1549865620280" duration="1325000" />
       <workItem from="1549868230992" duration="1864000" />
+<<<<<<< HEAD
+      <workItem from="1549870139533" duration="1420000" />
+=======
       <workItem from="1549903055277" duration="38000" />
+>>>>>>> 57b9f724b5142b4cec3c155ebd16d7bc29906498
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Run_test_'Sparse_matrix_test'__SparseMatrix - 2019.02.11 at 00h 15m 40s.xml">
-      <configuration name="Run test 'Sparse_matrix_test': SparseMatrix" configurationId="TestUnitRunConfigurationType" />
-    </history-entry>
-    <history-entry file="Run_test_'Sparse_matrix_test'__SparseMatrix - 2019.02.11 at 00h 16m 49s.xml">
-      <configuration name="Run test 'Sparse_matrix_test': SparseMatrix" configurationId="TestUnitRunConfigurationType" />
-    </history-entry>
     <history-entry file="Run_test_'Sparse_matrix_test'__SparseMatrix - 2019.02.11 at 00h 19m 34s.xml">
       <configuration name="Run test 'Sparse_matrix_test': SparseMatrix" configurationId="TestUnitRunConfigurationType" />
     </history-entry>
@@ -346,20 +375,34 @@
     <history-entry file="Run_test_'Sparse_matrix_test'__SparseMatrix - 2019.02.11 at 00h 27m 36s.xml">
       <configuration name="Run test 'Sparse_matrix_test': SparseMatrix" configurationId="TestUnitRunConfigurationType" />
     </history-entry>
+    <history-entry file="Run_test_'Sparse_matrix_test'__SparseMatrix - 2019.02.11 at 00h 29m 13s.xml">
+      <configuration name="Run test 'Sparse_matrix_test': SparseMatrix" configurationId="TestUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Run_test_'Trigdiagonal_matrix_test'__SparseMatrix - 2019.02.11 at 00h 29m 24s.xml">
+      <configuration name="Run test 'Trigdiagonal_matrix_test': SparseMatrix" configurationId="TestUnitRunConfigurationType" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
+    <option name="totallyTimeSpent" value="40819000" />
+=======
     <option name="totallyTimeSpent" value="39437000" />
+>>>>>>> 57b9f724b5142b4cec3c155ebd16d7bc29906498
   </component>
   <component name="ToolWindowManager">
     <frame x="47" y="22" width="1393" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
+<<<<<<< HEAD
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13983372" />
+=======
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13915618" />
+>>>>>>> 57b9f724b5142b4cec3c155ebd16d7bc29906498
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32882273" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49962208" visible="true" weight="0.40324762" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49962208" visible="true" weight="0.40324762" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -367,7 +410,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49962935" weight="0.2679162" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49962935" weight="0.26657647" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50037795" side_tool="true" weight="0.40324762" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -413,9 +456,26 @@
     <entry file="file://$PROJECT_DIR$/../../Examples/gem_example/lib/apple.rb" />
     <entry file="file://$PROJECT_DIR$/../../Examples/mixin_example/Number.rb" />
     <entry file="file://$PROJECT_DIR$/../../Examples/SmallExamples/ArrayTest.rb" />
+<<<<<<< HEAD
+    <entry file="file://$APPLICATION_CONFIG_DIR$/rubymine64.exe.vmoptions">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/nmatrix-0.2.4/lib/nmatrix/math.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="82" selection-start-line="82" selection-end-line="82" />
+        </state>
+      </provider>
+    </entry>
+=======
     <entry file="file://$APPLICATION_CONFIG_DIR$/rubymine64.exe.vmoptions" />
     <entry file="file://$PROJECT_DIR$/SparseMatrixLibrary/haha.rb" />
     <entry file="file://C:/Ruby25-x64/lib/ruby/gems/2.5.0/gems/nmatrix-0.2.4/lib/nmatrix/math.rb" />
+>>>>>>> 57b9f724b5142b4cec3c155ebd16d7bc29906498
     <entry file="file://$PROJECT_DIR$/SparseMatrixLibrary/matrix_factory.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1590">
@@ -430,6 +490,19 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/SparseMatrixLibrary/haha.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="19" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SparseMatrixLibrary/Sparse_matrix_test.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="184" column="47" lean-forward="true" selection-start-line="184" selection-start-column="47" selection-end-line="184" selection-end-column="47" />
+=======
     <entry file="file://$PROJECT_DIR$/assignment1_main.rb">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -437,13 +510,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="619">
           <caret line="198" column="5" selection-start-line="198" selection-start-column="5" selection-end-line="198" selection-end-column="5" />
+>>>>>>> 57b9f724b5142b4cec3c155ebd16d7bc29906498
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignment1_main.rb">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="7" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SparseMatrixLibrary/sparse_matrix.rb">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="481" column="3" lean-forward="true" selection-start-line="481" selection-start-column="3" selection-end-line="481" selection-end-column="3" />
+=======
         <state relative-caret-position="577">
           <caret line="469" lean-forward="true" selection-start-line="469" selection-end-line="469" />
+>>>>>>> 57b9f724b5142b4cec3c155ebd16d7bc29906498
         </state>
       </provider>
     </entry>
